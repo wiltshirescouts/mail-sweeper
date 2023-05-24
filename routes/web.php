@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +16,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+})->middleware('auth');
+
+Route::prefix('/auth')->group(function () {
+    Route::get('/login', [Controllers\AuthController::class, 'login'])->name('auth.login');
+    Route::get('/callback', [Controllers\AuthController::class, 'callback']);
 });
